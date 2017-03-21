@@ -1,0 +1,19 @@
+<RCC>
+    <qresource prefix="/assets">
+        <file>Arrows.svg</file>
+        <file>Genivi_Logo-blk.svg</file>
+        <file>Genivi_Logo-white.svg</file>
+        <file>Homepage-Background.png</file>
+        <file>Orange-Lines-and-Spheres.svg</file>
+        <file>Homepage-Background-with-lines-high-comp.jpg</file>
+        <file>alert_bus.png</file>
+        <file>alert_night_bus.png</file>
+        <file>alert_night_pedestrian.png</file>
+        <file>alert_night_traffic.png</file>
+        <file>alert_ped.png</file>
+        <file>alert_traffic.png</file>
+        <file>night_mode_moon.png</file>
+        <file>sound_off.png</file>
+        <file>sound_on.png</file>
+    </qresource>
+</RCC>

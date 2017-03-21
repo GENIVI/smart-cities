@@ -1,0 +1,3 @@
+[submodule "qtrvi"]
+	path = qtrvi
+	url = https://vendor1.nginfotpdx.net/gitlab/qtsandbox/qtrvi.git
