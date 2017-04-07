@@ -5,4 +5,5 @@ TEMPLATE = subdirs
                hmi-controller
 }
 
-SUBDIRS += com/genivi/rvitrafficservice
+SUBDIRS += com/genivi/rvitrafficservice \
+           qtposition_gpsd

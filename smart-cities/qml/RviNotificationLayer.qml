@@ -103,8 +103,12 @@ Item {
         }
     }
 
-//    PositionSource {
-//        name: v2xsource
-////        nmeaSource:
-//    }
+    PositionSource {
+        id: v2xsource
+        active: true
+        updateInterval: 1000
+        onPositionChanged: console.log("Time: " + position.timestamp +
+                                       ", Speed: " + position.speed +
+                                       ", Position: " + position.coordinate)
+    }
 }
