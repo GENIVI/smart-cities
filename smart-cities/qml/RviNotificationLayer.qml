@@ -1,4 +1,5 @@
 import QtQuick 2.0
+import QtPositioning 5.3
 
 import com.genivi.rvitrafficservice 1.0
 
@@ -8,15 +9,13 @@ Item {
     property string backendDeviceId: "genivi.org/backend/"
     property string remoteServiceName: "hello"
 
-    signal trafficEvent(string eventId, string eventTitle, string eventExplanation)
+    signal trafficEvent(string title, string explanation, url icon)
     signal speedEvent(string speedLimit, bool speeding)
 
     signal reportAvailable(string position, string speed)
 
     Component.onCompleted: {
         RviNode.nodeInit()
-
-
     }
 
     Connections {
@@ -61,7 +60,35 @@ Item {
         serviceName: "traffic/alert"
 
         onNotifyHmi: {
-            root.trafficEvent(eventId, eventTitle, eventExplanation)
+            var title; var explanation; var icon;
+            console.log("Got notify HMI! Event ID: " + eventId)
+            switch(parseInt(eventId)) {
+            case 1: / ** Speed alert */
+                console.warn("ERROR: Received use case 1 as a traffic warning")
+                break;
+            case 2: /** High-risk pedestrian warning */
+                console.log("Received a pedestrian area warning")
+                title = eventTitle ? eventTitle : "Caution"
+                explanation = eventExplanation ? eventExplanation : "High Pedestrian Area"
+                icon = colors.isNightMode ? "qrc:/assets/alert_night_pedestrian.png" : "qrc:/assets/alert_ped.png"
+                break;
+            case 3: /** Bus stop warning */
+                console.log("Received a bus stop warning");
+                title = eventTitle ? eventTitle : "Caution"
+                explanation = eventExplanation ? eventExplanation : "Bus Stop Ahead"
+                icon = colors.isNightMode ? "qrc:/assets/alert_night_bus.png" : "qrc:/assets/alert_bus.png"
+                break;
+            case 4: /** Traffic Jam warning */
+                console.log("Received a traffic jam warning");
+                title = eventTitle ? eventTitle : "Traffic Jam"
+                explanation = eventExplanation ? eventExplanation : "Major Delay"
+                icon = colors.isNightMode ? "qrc:/assets/alert_night_traffic.png" : "qrc:/assets/alert_traffic.png"
+                break;
+            default:
+                console.log("Just hanging out here in the switch")
+                break;
+            }
+            root.trafficEvent(title, explanation, icon)
         }
     }
 
@@ -72,8 +99,12 @@ Item {
 
         onNotifyHmi: {
             console.log("Got a speed event with limit " + eventSpeedLimit + ". Currently speeding? " + eventOverSpeed)
-            console.log("Got a large string: " + eventLargeString)
             root.speedEvent(eventSpeedLimit, eventOverSpeed)
         }
     }
+
+//    PositionSource {
+//        name: v2xsource
+////        nmeaSource:
+//    }
 }

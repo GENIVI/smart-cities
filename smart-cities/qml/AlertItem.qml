@@ -2,11 +2,25 @@ import QtQuick 2.0
 import QtGraphicalEffects 1.0
 
 Item {
-    id: alertView
+    id: alertItemInterface
 
-    property string alertName
-    property url sourceIcon
-    property string alertText
+    property string eventTitle: model.eventTitle
+    property url eventIcon: model.eventIcon
+    property string eventExplanation: model.eventExplanation
+    property string eventId: model.eventId
+
+    state: "DEFAULT"
+
+    signal showAlert(string eventId, string eventTitle,
+                     string eventExplanation)
+
+    Connections {
+        target: trafficService
+        onNotifyHmi: {
+            console.log("Got a traffic event over heeeere: " + eventId +
+                        ", " + eventTitle + ", " + eventExplanation)
+        }
+    }
 
     Rectangle {
         id: alertBanner
@@ -32,7 +46,7 @@ Item {
         minimumPointSize: 48
         font.bold: true
         color: colors.primaryOrange
-        text: alertName
+        text: eventTitle
     }
 
     Text {
@@ -49,17 +63,16 @@ Item {
         minimumPointSize: 36
         font.bold: true
         color: colors.secondaryTextColor
-        text: alertText
+        text: eventExplanation
     }
 
    Image {
         id: alertImage
-        source: sourceIcon
+        source: eventIcon
         width: parent.height
         height: parent.height
         anchors.horizontalCenter: alertBanner.left
         anchors.verticalCenter: alertBanner.verticalCenter
-        visible: false
     }
 
    DropShadow {

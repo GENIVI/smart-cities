@@ -10,6 +10,7 @@
 #include "trafficevent.h"
 #include "rvispeedservice.h"
 #include "speedevent.h"
+#include "trafficalertmodel.h"
 
 QT_BEGIN_NAMESPACE
 
@@ -36,6 +37,7 @@ public:
 
         qmlRegisterType<RviTrafficService>(uri, 1, 0, "RviTrafficService");
         qmlRegisterType<RviSpeedService>(uri, 1, 0, "RviSpeedService");
+//        qRegisterMetaType<TrafficAlertModel>("TrafficAlertModel");
     }
 };
 

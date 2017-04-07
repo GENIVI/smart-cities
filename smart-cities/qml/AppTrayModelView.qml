@@ -2,7 +2,7 @@ import QtQuick 2.0
 
 Item {
     id: trayView
-    property alias applicationsModel: grid.model
+//    property alias applicationsModel: grid.model
 
     /* Propogation signal to interface with wider system */
     signal openApplication(string name, url icon, string id)
@@ -25,28 +25,28 @@ Item {
         opacity: 0.65
     }
 
-    GridView {
-        id: grid
-        anchors.fill: trayBackDrop
-        cellWidth: parent.width * 0.33
-        cellHeight: parent.height * 0.33
-        delegate: AppTrayItem {
-            width: grid.cellWidth
-            height: grid.cellHeight
+//    GridView {
+//        id: grid
+//        anchors.fill: trayBackDrop
+//        cellWidth: parent.width * 0.33
+//        cellHeight: parent.height * 0.33
+//        delegate: AppTrayItem {
+//            width: grid.cellWidth
+//            height: grid.cellHeight
 
-            appId: model.appId
-            appName: model.appName
-            sourceIcon: {
-                var overrideIcon = overrideIcons[model.appId]
-                if (overrideIcon === undefined)
-                    return model.appIcon
-                else
-                    return overrideIcon
-            }
+//            appId: model.appId
+//            appName: model.appName
+//            sourceIcon: {
+//                var overrideIcon = overrideIcons[model.appId]
+//                if (overrideIcon === undefined)
+//                    return model.appIcon
+//                else
+//                    return overrideIcon
+//            }
 
-            onOpenApplication: trayView.openApplication(name, icon, id)
+////            onOpenApplication: trayView.openApplication(name, icon, id)
 
-        }
-        clip: true
-    }
+//        }
+//        clip: true
+//    }
 }

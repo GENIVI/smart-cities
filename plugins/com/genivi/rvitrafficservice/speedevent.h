@@ -16,15 +16,12 @@ public:
     // property READs
     QString eventSpeedLimit();
     bool eventOverSpeed();
-    QString eventLargeString();
 
 private:
     QString _eventSpeedLimit;
-    QString _eventLargeString;
     bool _eventOverSpeed;
 
     void setEventSpeedLimit(const QString &eventSpeedLimit);
-    void setEventLargeString(const QString &eventLargeString);
     void setEventOverSpeed(const bool eventOverSpeed);
 };
 

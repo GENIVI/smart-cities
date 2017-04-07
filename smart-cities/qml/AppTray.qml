@@ -2,7 +2,7 @@ import QtQuick 2.0
 
 Item {
     id: appTrayInterface
-    property alias applicationsModel: trayView.applicationsModel
+//    property alias applicationsModel: trayView.applicationsModel
 
     readonly property int sideBarWidth: appTrayInterface.width * 0.1
 

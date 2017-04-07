@@ -12,13 +12,15 @@ SOURCES += \
     rvitrafficservice.cpp \
     trafficevent.cpp \
     rvispeedservice.cpp \
-    speedevent.cpp
+    speedevent.cpp \
+    trafficalertmodel.cpp
 
 HEADERS += \
     rvitrafficservice.h \
     trafficevent.h \
     rvispeedservice.h \
-    speedevent.h
+    speedevent.h \
+    trafficalertmodel.h
 
 OTHER_FILES += rvi_conf.json
 

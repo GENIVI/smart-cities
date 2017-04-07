@@ -3,7 +3,7 @@
 
 #include <QString>
 #include <QJsonObject>
-#include <QImage>
+#include <QUrl>
 
 /*
  * Note: This object is intended to be a property container for QML
@@ -25,7 +25,6 @@ public:
     QString eventId();
     QString eventTitle();
     QString eventExplanation();
-    QImage eventIcon();
 
 private:
     // QML properties require member variables
@@ -33,14 +32,12 @@ private:
     QString _eventId;
     QString _eventTitle;
     QString _eventExplanation;
-    QImage _eventIcon;
 
     // TrafficEvent currently READ-ONLY
     // property setters
     void setEventId(const QString &eventId);
     void setEventTitle(const QString &eventTitle);
     void setEventExplanation(const QString &eventExplanation);
-    void setEventIconFromBase64Url(const QString &eventIconBase64Url);
 };
 
 #endif // TRAFFICEVENT_H

@@ -3,9 +3,8 @@ import QtGraphicalEffects 1.0
 
 Item {
     id: homeBase
-//    property alias homeApplicationsModel: homeApps.applicationsModel
-    property alias trayApplicationsModel: appTrayObject.applicationsModel
-    property bool appIsDisplayed: false
+
+//    property alias alertModel: featureArea.alertModel
 
     /* These properties are to scale all visual components based on the  */
     /* dimensions of the fit-scaled background image locking all aspect  */
@@ -39,7 +38,6 @@ Item {
         fillMode: Image.PreserveAspectFit
         smooth: true
         source: "qrc:/assets/Homepage-Background-with-lines-high-comp.jpg"
-        visible: !(appIsDisplayed)
     }
 
     /* Allows referencing to HomeApps and AppTray parents to be     */
@@ -51,6 +49,7 @@ Item {
         anchors.centerIn: parent
         clip: true
 
+        /** Use this to show alerts */
         FeatureArea {
             id: featureArea
             height: bgItemHeight

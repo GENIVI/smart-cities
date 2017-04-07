@@ -21,7 +21,7 @@ public Q_SLOTS:
     void speedEventChanged();
 
 Q_SIGNALS:
-    void notifyHmi(const QString &eventType, const QString &eventSpeedLimit = QString(), const QString &eventLargeString = QString(), const bool eventOverSpeed = false);
+    void notifyHmi(const QString &eventType, const QString &eventSpeedLimit = QString(), const bool eventOverSpeed = false);
 
 private:
     SpeedEvent * _event;

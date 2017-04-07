@@ -1,12 +1,10 @@
 <RCC>
     <qresource prefix="/qml">
-        <file>AppTray.qml</file>
         <file>AppTrayModelView.qml</file>
         <file>Colors.qml</file>
         <file>DateBackend.qml</file>
         <file>GeniviLogo.qml</file>
         <file>Home.qml</file>
-        <file>HomeNavigationButton.qml</file>
         <file>Sidebar.qml</file>
         <file>TrayButton.qml</file>
         <file>AppTrayItem.qml</file>
@@ -15,9 +13,15 @@
         <file>wayland-background.qml</file>
         <file>DesktopMain.qml</file>
         <file>DeviceMain.qml</file>
-        <file>AlertView.qml</file>
+        <file>AlertItem.qml</file>
         <file>SpeedLimit.qml</file>
         <file>RviNotificationLayer.qml</file>
         <file>AlertModel.qml</file>
+        <file>AlertModelView.qml</file>
+        <file>AppTray.qml</file>
+        <file>Alert.qml</file>
+        <file>AlertView.qml</file>
+        <file>ModeSwitch.qml</file>
+        <file>Disclaimer.qml</file>
     </qresource>
 </RCC>

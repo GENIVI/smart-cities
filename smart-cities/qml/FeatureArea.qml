@@ -1,13 +1,17 @@
 import QtQuick 2.0
 import QtQml 2.2
+import QtQuick.Controls 1.4
+import QtQuick.Controls.Styles 1.4
 
 Item {
     id: featureAreaInterface
 
     property bool showTrafficAlert: false
     property bool showSpeedAlert: false
-    property alias alertName: alert.alertName
-    property alias alertText: alert.alertText
+    property bool showDisclaimer: true
+    property string alertTitle
+    property string alertExplanation
+    property url alertIcon
     property alias speedLimit: speedDisplay.speedLimit
 
     /* Application drawing space */
@@ -17,6 +21,10 @@ Item {
         height: parent.height
         anchors.centerIn: parent
 
+        Disclaimer {
+            visible: showDisclaimer
+        }
+
         Rectangle {
             id: background
             width: parent.width
@@ -24,16 +32,17 @@ Item {
             anchors.centerIn: parent
 
             color: colors.primaryBlue
+            visible: !showDisclaimer
         }
 
-        Rectangle {
-            id: stripe
-            width: parent.width
-            height: parent.height * .2
-            anchors.horizontalCenter: parent.horizontalCenter
-            anchors.bottom: surfaceArea.bottom
-            anchors.bottomMargin: parent.height * .2
-            color: colors.secondaryBlue
+        ModeSwitch {
+            anchors.bottom: background.bottom
+            anchors.bottomMargin: background.height * .225
+            anchors.left: background.left
+            anchors.leftMargin: background.width * .1
+            color: background.color
+
+            visible: !showDisclaimer
         }
 
         RviNotificationLayer {
@@ -46,11 +55,12 @@ Item {
             }
 
             onTrafficEvent:  {
-                featureAreaInterface.alertName = eventTitle
-                featureAreaInterface.alertText = eventExplanation
-                featureAreaInterface.showTrafficAlert = true
+                featureAreaInterface.alertTitle = title
+                featureAreaInterface.alertExplanation = explanation
+                featureAreaInterface.alertIcon = icon
+                featureAreaInterface.showTrafficAlert = title ? true : false
                 timeout.start()
-                console.log("Service invoked!" + eventId + eventTitle + eventExplanation)
+                console.log("Service invoked!" + title + explanation)
             }
 
             onSpeedEvent: {
@@ -70,6 +80,10 @@ Item {
             anchors.horizontalCenter: parent.horizontalCenter
 
             visible: showTrafficAlert
+
+            alertName: alertTitle
+            alertText: alertExplanation
+            sourceIcon: alertIcon
         }
 
         SpeedLimit {
@@ -82,6 +96,8 @@ Item {
             anchors.horizontalCenter: parent.horizontalCenter
 
             speedAlertIsDisplayed: showSpeedAlert
+
+            visible: !showDisclaimer
         }
     }
 

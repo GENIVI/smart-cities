@@ -15,5 +15,6 @@
         <file>night_mode_moon.png</file>
         <file>sound_off.png</file>
         <file>sound_on.png</file>
+        <file>v2xdump.nmea</file>
     </qresource>
 </RCC>

@@ -33,8 +33,7 @@ Window {
         Home {
             id: homeObject
             anchors.fill: parent
-//            homeApplicationsModel: HomeApplicationsModel {}
-            trayApplicationsModel: AppTrayModel {}
+//            alertModel: AlertModel {}
         }
     }
 }

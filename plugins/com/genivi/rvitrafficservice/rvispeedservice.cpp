@@ -27,5 +27,5 @@ void RviSpeedService::rviServiceCallback(int fd, void *serviceData, const char *
     Q_UNUSED(serviceData);
     QByteArray b(parameters, strlen(parameters));
     _event->setEventObject(QJsonDocument::fromJson(b).object());
-    emit notifyHmi("Speed Event", _event->eventSpeedLimit(), _event->eventLargeString(), _event->eventOverSpeed());
+    emit notifyHmi("Speed Event", _event->eventSpeedLimit(), _event->eventOverSpeed());
 }
