@@ -9,8 +9,6 @@ Rectangle {
 
     Image {
         id: modeIcon
-        width: 80
-        height: 80
         source: "qrc:/assets/night_mode_moon.png"
         anchors.left: parent.left
         anchors.top: parent.top

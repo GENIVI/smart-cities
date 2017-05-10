@@ -35,7 +35,14 @@ Item {
             visible: !showDisclaimer
         }
 
+        SoundSwitch {
+            anchors.top: speedDisplay.top
+            anchors.left: modeSwitch.left
+            visible: !showDisclaimer
+        }
+
         ModeSwitch {
+            id: modeSwitch
             anchors.bottom: background.bottom
             anchors.bottomMargin: background.height * .225
             anchors.left: background.left

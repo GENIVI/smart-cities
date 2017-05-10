@@ -23,5 +23,6 @@
         <file>AlertView.qml</file>
         <file>ModeSwitch.qml</file>
         <file>Disclaimer.qml</file>
+        <file>SoundSwitch.qml</file>
     </qresource>
 </RCC>

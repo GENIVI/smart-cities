@@ -28,18 +28,18 @@ Window {
         anchors.fill: parent
 
         // Wire up Home API to HMIController API
-        appIsDisplayed: hmiController.appIsDisplayed
+//        appIsDisplayed: hmiController.appIsDisplayed
         //TODO when apllications like radio and hvac arrive use the hmiController
         // for now we will mock out the home screen
-        homeApplicationsModel: HomeApplicationsModel {}
+//        homeApplicationsModel: HomeApplicationsModel {}
         //homeApplicationsModel: hmiController.homeApplicationsModel
 //        trayApplicationsModel: hmiController.allApplicationsModel
 
-        onRequestOpenHomeApplication: { hmiController.openApp(id); hmiController.stackLauncherOnTop(false) }
-        onRequestOpenTrayApplication: hmiController.openApp(id)
-        onRequestOpenHomeScreen: hmiController.openHomeScreen()
-        onApplicationAreaChanged: hmiController.setApplicationArea(applicationArea)
-        onTrayAboutToSlideOut: hmiController.stackLauncherOnTop(true)
-        onTrayFinishedSlidingIn: hmiController.stackLauncherOnTop(false)
+//        onRequestOpenHomeApplication: { hmiController.openApp(id); hmiController.stackLauncherOnTop(false) }
+//        onRequestOpenTrayApplication: hmiController.openApp(id)
+//        onRequestOpenHomeScreen: hmiController.openHomeScreen()
+//        onApplicationAreaChanged: hmiController.setApplicationArea(applicationArea)
+//        onTrayAboutToSlideOut: hmiController.stackLauncherOnTop(true)
+//        onTrayFinishedSlidingIn: hmiController.stackLauncherOnTop(false)
     }
 }

@@ -4,6 +4,7 @@ CONFIG += desktop
 
 SUBDIRS += plugins \
            smart-cities \
-           qtrvi
+#           qtrvi
+
 
 QML_IMPORT_PATH = plugins

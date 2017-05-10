@@ -7,12 +7,10 @@ Item {
     id: root
 
     property string backendDeviceId: "genivi.org/backend/"
-    property string remoteServiceName: "hello"
+    property string remoteServiceName: "obu-data-recipient"
 
     signal trafficEvent(string title, string explanation, url icon)
     signal speedEvent(string speedLimit, bool speeding)
-
-    signal reportAvailable(string position, string speed)
 
     Component.onCompleted: {
         RviNode.nodeInit()
@@ -37,21 +35,11 @@ Item {
         }
         onRviRemoteNodeConnected: {
             console.log("Success! Connected to remote node")
-            RviNode.invokeService("genivi.org/backend/hello", '{"one":1}');
-            root.reportAvailable("myposition", "myspeed")
         }
         onNewActiveConnection: console.log("RVI Node has new active connections")
         onRviNodeRegisterServiceSuccess: console.log("Registered the " + serviceName + " service!")
         onRviProcessInputSuccess: console.log("Process input success")
         onRviNodeInvokeServiceSuccess: console.log("Invoked service " + serviceName + " with parameters " + parameters)
-    }
-
-    onReportAvailable: {
-        var serviceName = backendDeviceId + remoteServiceName
-        console.log("ServiceName: " + serviceName)
-        var parameters = '{"pos":"' + position + '", "speed":"' + speed + '"}'
-        console.log("Parameters: " + parameters)
-        RviNode.invokeService(serviceName, parameters)
     }
 
     RviTrafficService {
@@ -107,8 +95,54 @@ Item {
         id: v2xsource
         active: true
         updateInterval: 1000
-        onPositionChanged: console.log("Time: " + position.timestamp +
-                                       ", Speed: " + position.speed +
-                                       ", Position: " + position.coordinate)
+        onPositionChanged: {
+            var gpsData = []
+
+            var altitudeData = {}
+            altitudeData["source"] = "Signal.Cabin.Infotainment.Navigation.CurrentLocation.Altitude"
+            altitudeData["value"] = position.coordinate.altitude
+            altitudeData["time"] = position.timestamp
+            gpsData.push(altitudeData)
+
+            var latitudeData = {}
+            latitudeData["source"] = "Signal.Cabin.Infotainment.Navigation.CurrentLocation.Latitude"
+            latitudeData["value"] = position.coordinate.latitude
+            latitudeData["time"] = position.timestamp
+            gpsData.push(latitudeData)
+
+            var longitudeData = {}
+            longitudeData["source"] = "Signal.Cabin.Infotainment.Navigation.CurrentLocation.Longitude"
+            longitudeData["value"] = position.coordinate.longitude
+            longitudeData["time"] = position.timestamp
+            gpsData.push(longitudeData)
+
+            var speedData = {}
+            speedData["source"] = "Signal.Cabin.Infotainment.Navigation.CurrentLocation.Speed"
+            speedData["value"] = position.speed
+            speedData["time"] = position.timestamp
+            gpsData.push(speedData)
+
+            var headingData = {}
+            headingData["source"] = "Signal.Cabin.Infotainment.Navigation.CurrentLocation.Heading"
+            headingData["value"] = position.direction
+            headingData["time"] = position.timestamp
+            gpsData.push(headingData)
+
+            var accuracyData = {}
+            accuracyData["source"] = "Signal.Cabin.Infotainment.Navigation.CurrentLocation.Accuracy"
+            accuracyData["value"] = position.horizontalAccuracy
+            accuracyData["time"] = position.timestamp
+            gpsData.push(accuracyData)
+
+            var params = {}
+            params["gpsData"] = gpsData
+
+            var paramsString = JSON.stringify(params)
+
+            var serviceName = backendDeviceId + remoteServiceName
+
+            console.log("SERVICE NAME: " + serviceName + " PARAMS: " + paramsString)
+            RviNode.invokeService(serviceName, paramsString)
+        }
     }
 }

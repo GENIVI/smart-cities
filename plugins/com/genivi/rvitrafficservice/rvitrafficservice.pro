@@ -35,14 +35,16 @@ DISTFILES = qmldir
 }
 
 # TODO: why is this required when the QtRvi module should handle this?
-!isEmpty($$(QNX_TARGET)) {
-    message(QNX Target Build!!!)
-    INCLUDEPATH += $$(QNX_TARGET)/x86/include
-    LIBS += -L$$(QNX_TARGET)/x86/lib -lrvi
-} else {
-    INCLUDEPATH += /usr/local/include
-    LIBS += -L/usr/local/lib -lrvi
-}
+#!isEmpty($$(QNX_TARGET)) {
+#    message(QNX Target Build!!!)
+#    INCLUDEPATH += $$(QNX_TARGET)/x86/include
+#    LIBS += -L$$(QNX_TARGET)/x86/lib -lrvi
+#} else {
+#    INCLUDEPATH += /usr/local/include
+#    LIBS += -L/usr/local/lib -lrvi
+#}
+
+LIBS += -lrvi
 
 # Avoid going to release/debug subdirectory
 win32: DESTDIR = ./
