@@ -7,7 +7,7 @@ Item {
     id: root
 
     property string backendDeviceId: "genivi.org/backend/"
-    property string remoteServiceName: "obu-data-recipient"
+    property string remoteServiceName: "obu_data_rcv"
 
     signal trafficEvent(string title, string explanation, url icon)
     signal speedEvent(string speedLimit, bool speeding)
@@ -28,7 +28,7 @@ Item {
         // Successes
         onRviInitialized: {
             console.log("Success! RVI Node initialized.")
-            RviNode.nodeConnect("38.129.64.41", "9007")
+            RviNode.nodeConnect("205.153.115.116", "9000")
 
             RviNode.registerService(trafficService.serviceName, trafficService)
             RviNode.registerService(speedService.serviceName, speedService)
