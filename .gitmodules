@@ -1,6 +1,3 @@
-[submodule "qtrvi"]
-	path = qtrvi
-	url = https://vendor1.nginfotpdx.net/gitlab/qtsandbox/qtrvi.git
 [submodule "plugins/qtposition_gpsd"]
 	path = plugins/qtposition_gpsd
 	url = https://github.com/jmechnich/qtposition_gpsd.git
