@@ -4,10 +4,13 @@ import QtPositioning 5.3
 import com.genivi.rvitrafficservice 1.0
 
 Item {
-    id: root
+    id: rviRoot
 
     property string backendDeviceId: "genivi.org/backend/"
     property string remoteServiceName: "obu_data_rcv"
+    property bool rviConnected: false
+    property bool rviInitialized: false
+    property bool gpsActive: false
 
     signal trafficEvent(string title, string explanation, url icon)
     signal speedEvent(string speedLimit, bool speeding)
@@ -32,9 +35,13 @@ Item {
 
             RviNode.registerService(trafficService.serviceName, trafficService)
             RviNode.registerService(speedService.serviceName, speedService)
+
+            rviInitialized = true
+
         }
         onRviRemoteNodeConnected: {
             console.log("Success! Connected to remote node")
+            rviConnected = true
         }
         onNewActiveConnection: console.log("RVI Node has new active connections")
         onRviNodeRegisterServiceSuccess: console.log("Registered the " + serviceName + " service!")
@@ -76,7 +83,7 @@ Item {
                 console.log("Just hanging out here in the switch")
                 break;
             }
-            root.trafficEvent(title, explanation, icon)
+            rviRoot.trafficEvent(title, explanation, icon)
         }
     }
 
@@ -87,7 +94,7 @@ Item {
 
         onNotifyHmi: {
             console.log("Got a speed event with limit " + eventSpeedLimit + ". Currently speeding? " + eventOverSpeed)
-            root.speedEvent(eventSpeedLimit, eventOverSpeed)
+            rviRoot.speedEvent(eventSpeedLimit, eventOverSpeed)
         }
     }
 
@@ -96,6 +103,8 @@ Item {
         active: true
         updateInterval: 1000
         onPositionChanged: {
+            gpsActive = true
+
             var gpsData = []
 
             var altitudeData = {}
@@ -143,6 +152,9 @@ Item {
 
             console.log("SERVICE NAME: " + serviceName + " PARAMS: " + paramsString)
             RviNode.invokeService(serviceName, paramsString)
+        }
+        onUpdateTimeout: {
+            gpsActive = false
         }
     }
 }

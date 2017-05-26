@@ -56,7 +56,7 @@ Item {
     Text {
         id: timeDisplay
         text: dateObject.currentTimeString
-        color: "white"
+        color: featureArea.gpsActive ? "white" : colors.alertTint // light red
         font.pixelSize: parent.height * 0.15
         font.family: "Eurostyle"
         anchors.top: logoContainer.bottom
@@ -67,7 +67,7 @@ Item {
     Text {
         id: dateDisplay
         text: dateObject.currentDateString
-        color: "white"
+        color: featureArea.rviConnected ? "white" : featureArea.rviInitialized ? colors.secondaryTint : colors.alertTint
         font.pixelSize: parent.height * 0.075
         font.family: "Eurostyle"
         anchors.top: timeDisplay.bottom

@@ -13,6 +13,9 @@ Item {
     property string alertExplanation
     property url alertIcon
     property alias speedLimit: speedDisplay.speedLimit
+    property alias gpsActive: rviNotifications.gpsActive
+    property alias rviConnected: rviNotifications.rviConnected
+    property alias rviInitialized: rviNotifications.rviInitialized
 
     /* Application drawing space */
     Item {
