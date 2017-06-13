@@ -47,6 +47,6 @@ Rectangle {
         font.pointSize: 20
         wrapMode: Text.WordWrap
         color: colors.lightGray
-        text: "Distractions may cause accidents. Never touch this unit while driving. Obey traffic regulations.\n \nCertain features of this unit may use your location.\n \nPress the screen to continue."
+        text: "Distractions may cause accidents. Never touch this unit while driving. Obey traffic regulations.\n \nCertain features of this unit may use your location.\n \nTouch the screen to continue."
     }
 }
