@@ -27,6 +27,11 @@ Item {
         onRviBadHandle: console.log("Error: Invalid RVI handle")
         onRviNodeRegisterServiceError: console.log("Error: RVI node failed to register service")
         onRviProcessInputFailure: console.log("Error: Process input failure")
+        onRviRemoteNodeConnectionFailure: {
+            console.log("Error: Failed to connect to remote node.")
+
+            RviNode.nodeConnect("205.153.115.116", "9000")
+        }
 
         // Successes
         onRviInitialized: {
