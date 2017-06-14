@@ -3,9 +3,12 @@ import QtPositioning 5.3
 
 import com.genivi.rvitrafficservice 1.0
 
+
 Item {
     id: rviRoot
 
+    property string addr: "205.153.115.116"
+    property string port: "9000"
     property string backendDeviceId: "genivi.org/backend/"
     property string remoteServiceName: "obu_data_rcv"
     property bool rviConnected: false
@@ -19,39 +22,52 @@ Item {
         RviNode.nodeInit()
     }
 
+    Timer {
+        id: connectTimer
+        interval: 500; running: false; repeat: false
+        onTriggered: {
+            console.log("Attempting to connect to " + addr + ":" + port)
+            RviNode.nodeConnect(addr, port)
+        }
+    }
+
     Connections {
         target: RviNode
 
         // Errors
-        onRviInitFailure: console.log("Error: Failed to initialize RVI")
-        onRviBadHandle: console.log("Error: Invalid RVI handle")
-        onRviNodeRegisterServiceError: console.log("Error: RVI node failed to register service")
-        onRviProcessInputFailure: console.log("Error: Process input failure")
-        onRviRemoteNodeConnectionFailure: {
+        onInitError: console.log("Error: Failed to initialize RVI")
+        onInvalidRviHandle: console.log("Error: Invalid RVI handle")
+        onRegisterServiceError: console.log("Error: RVI node failed to register service")
+        onProcessInputError: console.log("Error: Process input failure")
+        onRemoteConnectionError: {
             console.log("Error: Failed to connect to remote node.")
-
-            RviNode.nodeConnect("205.153.115.116", "9000")
+            console.log("Starting the connection timer...")
+            connectTimer.restart()
+        }
+        onInvokeServiceError: {
         }
 
         // Successes
-        onRviInitialized: {
+        onInitSuccess: {
             console.log("Success! RVI Node initialized.")
-            RviNode.nodeConnect("205.153.115.116", "9000")
-
+            console.log("Starting the connection timer...")
+            connectTimer.restart()
             RviNode.registerService(trafficService.serviceName, trafficService)
             RviNode.registerService(speedService.serviceName, speedService)
 
             rviInitialized = true
 
         }
-        onRviRemoteNodeConnected: {
+        onRemoteNodeConnected: {
             console.log("Success! Connected to remote node")
-            rviConnected = true
         }
-        onNewActiveConnection: console.log("RVI Node has new active connections")
-        onRviNodeRegisterServiceSuccess: console.log("Registered the " + serviceName + " service!")
-        onRviProcessInputSuccess: console.log("Process input success")
-        onRviNodeInvokeServiceSuccess: console.log("Invoked service " + serviceName + " with parameters " + parameters)
+        onNewActiveConnection: {
+            rviConnected = true
+            console.log("RVI Node has new active connections")
+        }
+        onRegisterServiceSuccess: console.log("Registered the " + serviceName + " service!")
+        onProcessInputSuccess: console.log("Process input success")
+        onInvokeServiceSuccess: console.log("Invoked service " + serviceName + " with parameters " + parameters)
     }
 
     RviTrafficService {
