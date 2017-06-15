@@ -1,3 +1,6 @@
 [submodule "plugins/qtposition_gpsd"]
 	path = plugins/qtposition_gpsd
 	url = https://github.com/jmechnich/qtposition_gpsd.git
+[submodule "plugins/com/genivi/v2x"]
+	path = plugins/com/genivi/v2x
+	url = https://github.com/smiller6/v2x-qt-plugin.git
