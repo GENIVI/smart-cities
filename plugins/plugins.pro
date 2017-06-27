@@ -6,4 +6,5 @@ TEMPLATE = subdirs
 }
 
 SUBDIRS += com/genivi/rvitrafficservice \
-           qtposition_gpsd
+           qtposition_gpsd \
+           com/genivi/v2x
