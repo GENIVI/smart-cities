@@ -166,6 +166,7 @@ Item {
 
             var params = {}
             params["gpsData"] = gpsData
+            params["vehicleId"] = rviId
 
             var paramsString = JSON.stringify(params)
 

@@ -1,5 +1,8 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
+#include <QQmlContext>
+#include <QProcess>
+#include <QDebug>
 
 #ifdef Q_OS_UNIX
 //#include "UnixSignalHandler.h"
@@ -23,8 +26,19 @@ int main(int argc, char *argv[])
     background.showFullScreen();
 #endif // NOT DESKTOP_BUILD
 
+    // Ensure that unique RVI node ID is set (just once) and made available to app
+    QProcess process;
+    process.start("/usr/bin/rvi-init");
+    process.waitForFinished();
+    QString output = process.readAllStandardOutput().trimmed();
+
     //Launcher
     QQmlApplicationEngine engine;
+    // Set RVI node ID context property
+    QQmlContext *ctxt = engine.rootContext();
+    ctxt->setContextProperty("rviId", output);
+//    ctxt->setContextProperty("rviId", &output);
+//    engine.rootContext()->setContextProperty("rviId", &output);
 
     // Load Desktop or Device QML main file
 #ifdef DESKTOP_BUILD
