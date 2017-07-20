@@ -109,19 +109,6 @@ Item {
 
             visible: !showDisclaimer
         }
-
-        PowerOff {
-            id: powerOff
-            width: 100
-            height: 100
-            anchors.right: surfaceArea.right
-            anchors.rightMargin: parent.width * .125
-            anchors.bottom: surfaceArea.bottom
-            anchors.bottomMargin: parent.height * .2
-            // color: colors.primaryGold
-
-            visible: !showDisclaimer
-        }
     }
 
     onShowTrafficAlertChanged: console.log("Time to show the traffic alert? " + showTrafficAlert)

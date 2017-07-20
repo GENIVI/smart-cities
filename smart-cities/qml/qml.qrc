@@ -24,6 +24,5 @@
         <file>ModeSwitch.qml</file>
         <file>Disclaimer.qml</file>
         <file>SoundSwitch.qml</file>
-        <file>PowerOff.qml</file>
     </qresource>
 </RCC>
